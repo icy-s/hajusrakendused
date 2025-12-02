@@ -34,14 +34,16 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 })
 
-async function sendToServer(code){
-    const response = await fetch(serverHost + 'api/auth/token', {
+async function sendToServer(_code){
+    const response = await fetch(serverHost + '/api/auth/token', {
         method: 'POST',
         headers: {
-            'Content-type': 'appliication/json'
+            'Content-type': 'application/json'
         },
         body: JSON.stringify({ code: _code})
     })
+
+    console.log(response);
 
     if(!response.ok){
         throw new Error ('Server is failing')
