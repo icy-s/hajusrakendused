@@ -8,7 +8,11 @@ const PORT = 3001;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3001',
+  credentials: true
+}));
+app.use(express.static("public"))
 
 /*app.use((req, res, next) => {
   req.header("Access-Control-Allow-Origin", "http://127.0.0.1:3001")
