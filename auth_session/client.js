@@ -10,7 +10,7 @@ loginForm.addEventListener('submit', async (event) => {
     const _password = passwordInput.value.trim()
 
     // username != true
-    if (!username || !password){
+    if (!_username || !_password){
         usernameInput.style.Border = 'border: 1px solid red'
         usernameInput.style.border = '1px solid red'
         passwordInput.style.border = '1px solid red'
@@ -18,9 +18,10 @@ loginForm.addEventListener('submit', async (event) => {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/api/login', {
+        const response = await fetch('http://localhost:3001/api/login',
+            {
             method: 'POST',
-            header: {
+            headers: {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify( {
@@ -28,7 +29,11 @@ loginForm.addEventListener('submit', async (event) => {
                 password: _password
             })
         })
-        const data = response.json()
+        const data = await response.json()
+        console.log('data', data.success);
+        console.log('username', data.username);
+        console.log('sessionId', data.sessionId);
+        
 
         if(response.ok){
             console.log('login succesful');

@@ -1,11 +1,21 @@
 import express from 'express';
+import cors from "cors";
+import session from "express-session";
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
+app.use(cors());
+
+/*app.use((req, res, next) => {
+  req.header("Access-Control-Allow-Origin", "http://127.0.0.1:3001")
+  req.header("Access-Control-Allow-Method", "GET, POST, PUT, DELETE, OPTIONS")
+  req.header("Access-Control-Allow-Headers", "Content-Type")
+  req.header("Access-Control-Allow-Credentials", "true")
+})*/
 
 // Mock user database
 const users = [
@@ -13,9 +23,24 @@ const users = [
   { id: 2, username: "teacher", password: "teach123" },
 ];
 
+app.use(
+  session({
+    secret: 'mysupersecret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false, // no https
+      maxAge: 1000 * 60 * 15,
+      httpOnly: false
+    }
+  })
+)
+
 // Routes
 app.post("/api/login", (req, res) => {
     const { username, password } = req.body
+
+    console.log(req.body)
 
     console.log('username', username);
     console.log('password', password);
@@ -32,7 +57,7 @@ app.post("/api/login", (req, res) => {
         res.json({
             success: true,
             username: user.username,
-            sessionId: req.sessionId
+            sessionId: req.sessionID
         })
 
     } else {
