@@ -1,31 +1,48 @@
-# Hajusrakendused – Distributed Systems Project
+# Distributed Systems Project – *Hajusrakendused*
 
-This project was developed as part of the **Hajusrakendused (Distributed Systems)** course.  
-It demonstrates practical skills in building a simple distributed web application using a RESTful architecture, separating server and client logic, and enabling structured communication between them.
+This project is being developed as part of the *Hajusrakendused* (Distributed Systems) course and demonstrates practical skills in building a simple distributed web application.  
+It focuses on connecting front-end and back-end layers, using REST APIs, routing, and handling JSON-based communication.
 
-## 🚀 Features
+## 🚀 Key Features
 
-- REST API built with **Node.js / Express**
-- Client-side integration using **Fetch API**
-- JSON-based request/response handling
-- Routing and middleware structure
-- Asynchronous client–server communication
-- Basic principles of distributed systems
-- Clear separation between services and layers
+- Backend service built with **Node.js + Express**
+- REST API endpoints for data exchange
+- Front-end integration using **Fetch API**
+- Middleware and routing structure
+- JSON request/response handling
+- Basic distributed architecture concepts
+- Multiple services communicating within the app
 
-## 🧩 What this project demonstrates
+## 📦 Technologies Used
 
-- Designing and implementing REST endpoints  
-- Connecting front-end and back-end components  
-- Handling multi-step data flows between services  
-- Structuring applications using controllers and middleware  
-- Understanding the fundamentals of distributed architectures  
-
-## 🛠️ Technologies Used
-
-- **Node.js**
-- **Express.js**
+- **Node.js / Express**
 - **JavaScript (ES6)**
-- **Fetch API**
+- **HTML / CSS**
+- **REST API**
 - **JSON**
-- **HTML / CSS (if applicable)**
+- **Git & GitHub**
+
+---
+
+## ▶️ Running the Project
+
+1. Clone the repository:
+```
+git clone https://github.com/icy-s/hajusrakendused.git
+cd hajusrakendused
+```
+
+Install dependencies:
+```
+npm install
+```
+
+Start the server:
+```
+node app.js
+```
+
+Open in browser:
+```
+http://localhost:3000
+```
