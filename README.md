@@ -32,17 +32,17 @@ git clone https://github.com/icy-s/hajusrakendused.git
 cd hajusrakendused
 ```
 
-Install dependencies:
+2. Install dependencies:
 ```
 npm install
 ```
 
-Start the server:
+3. Start the server:
 ```
 node app.js
 ```
 
-Open in browser:
+4. Open in browser:
 ```
 http://localhost:3000
 ```
