@@ -73,6 +73,8 @@ app.post("/api/login", (req, res) => {
 });
 
 const isAuthenticated = (req, res, next) => {
+  console.log(req.session);
+
   if (req.session.userId){
     next()
   } else {
@@ -81,7 +83,10 @@ const isAuthenticated = (req, res, next) => {
 }
 
 app.get("/api/profile", isAuthenticated, (req, res) => {
-  console.log('Profile accessed by ' . req.session.username);
+
+  console.log('---');
+  
+  console.log('Profile accessed by ' + req.session.username);
   res.json({
     username: req.session.username,
     userId: req.session.userId,

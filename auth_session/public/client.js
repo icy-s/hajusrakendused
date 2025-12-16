@@ -26,7 +26,7 @@ loginForm.addEventListener('submit', async (event) => {
     }
 
     try {
-        const response = await fetch(hostName + '/api/login',
+        const response = await fetch('/api/login',
             {
             method: 'POST',
             headers: {
@@ -42,11 +42,7 @@ loginForm.addEventListener('submit', async (event) => {
         console.log('data', data.success);
         console.log('username', data.username);
         console.log('sessionId', data.sessionId);
-        loadProfile();
-
-        if(response.ok){
-            console.log('login succesful');
-        }
+        setTimeout(loadProfile(), 2000)
 
     } catch (error)
     {}
@@ -54,17 +50,21 @@ loginForm.addEventListener('submit', async (event) => {
 
 async function loadProfile() {
     try {
-        const response = await fetch(hostName + '/api/profile', {
+        const response = await fetch('/api/profile', {
             method: 'GET',
             credentials: 'include'
         })
 
-        profileView.classList.remove('hidden')
-
         if (response.ok)
         {
-            const data = response.json()
+            const data = await response.json()
             console.log('Data: ', data);
+
+            profileUserId.innerHTML = data.userId
+            profileUsername.innerHTML = data.username
+            profileSessionId.innerHTML = data.sessionID
+
+            profileView.classList.remove('hidden')
         }
     } catch (error) {
         
