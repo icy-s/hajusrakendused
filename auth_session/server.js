@@ -11,7 +11,8 @@ app.use(express.urlencoded({extended: true}))
 app.use(cors({
   origin: 'http://localhost:3001',
   credentials: true
-}));
+}))
+
 app.use(express.static("public"))
 
 /*app.use((req, res, next) => {
@@ -35,7 +36,7 @@ app.use(
     cookie: {
       secure: false, // no https
       maxAge: 1000 * 60 * 15,
-      httpOnly: false
+      httpOnly: false // temporary!
     }
   })
 )
@@ -71,10 +72,47 @@ app.post("/api/login", (req, res) => {
     }
 });
 
+const isAuthenticated = (req, res, next) => {
+  if (req.session.userId){
+    next()
+  } else {
+    res.status(401).json( { error: "You are not authenticated!"})
+  }
+}
+
+app.get("/api/profile", isAuthenticated, (req, res) => {
+  console.log('Profile accessed by ' . req.session.username);
+  res.json({
+    username: req.session.username,
+    userId: req.session.userId,
+    sessionID: req.sessionID
+  })
+})
 
 app.post("/api/logout", (req, res) => {
-
+  const username = req.session.username
+  req.session.destroy(err => {
+    if (err)
+    {
+      res.status(500).json({error: 'could not logout'})
+    }
+    console.log('User logged out ' + username);
+    res.json({success: true})
+  })
 });
+
+app.get('/api/session', (req, res) => {
+  if (req.session.userId) {
+    res.json({
+      authenticated: true,
+      username: req.session.username
+    })
+  } else {
+    res.json({
+      authenticated: false
+    })
+  }
+})
 
 app.listen(PORT, () => {
   console.log(`\n=================================`);
