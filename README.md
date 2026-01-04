@@ -1,3 +1,5 @@
+<img src="readme.png" alt="Project Banner">
+
 # Distributed Systems Project – *Hajusrakendused*
 
 This project is being developed as part of the *Hajusrakendused* (Distributed Systems) course and demonstrates practical skills in building a simple distributed web application.  
