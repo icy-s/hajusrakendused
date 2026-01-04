@@ -41,7 +41,7 @@ npm install
 
 3. Start the server:
 ```
-node app.js
+npx http-server -p 3000
 ```
 
 4. Open in browser:
