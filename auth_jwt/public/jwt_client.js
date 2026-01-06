@@ -4,14 +4,14 @@ const passwordInput = document.getElementById('password')
 
 const messageDiv = document.getElementById('message')
 
-// profile
+// profile 
 const profileView = document.getElementById('profileView')
 const profileUsername = document.getElementById('profileUsername')
 const profileUserId = document.getElementById('profileUserId')
 const profileRole = document.getElementById('profileRole')
 
 // token
-const tokenPreview = document.getElementById('tokenPreview')
+const tokenPreview = document.getElementById('tokenPreview')  
 const tokenIssued = document.getElementById('tokenIssued')
 const tokenExpires = document.getElementById('tokenExpires')
 
@@ -24,56 +24,72 @@ loginForm.addEventListener('submit', async (event) => {
     const password = passwordInput.value.trim()
 
     // если username или пароль неправильные
-    if (!username || !password )
-    {
+    if (!username || !password ){
+        messageDiv.innerText = "Enter username and password"
+        messageDiv.style.display = 'block'
+        messageDiv.clientList.add("error")
 
-    try
-        {
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application-json'
-                },
-                body: JSON.stringify({
-                // 1 username - ключ, 2 username - значение
-                    username: username,
-                    password: password
-                })
+        if (!username)(
+            usernameInput.style.border = "1px solid red"
+        )
+
+        if (!password){
+            passwordInput.classList.add('border-red')
+        }
+
+        // не возвращает что-либо, а просто для обозначения конца функции
+        return
+    }
+
+     try{
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
             })
+        })
 
         const data = await response.json()
 
         if (response.ok)
         {
-            console.log("Login successful")
-            console.log("Your token: " + data.token)
-            // save jwt token
+            console.log('Login successfull')
+            console.log('Your token: ' + data.token );
+            //save jwt token
             saveToken(data.token)
-            // get profile
+            // get profile 
             await loadProfile()
+            
         }
 
+    } 
+    catch(error)
+    {
+        console.log(error)
     }
-    catch (error)
-        {
-            console.log("error")
-        }
-}
+
+
+
 })
 
 async function loadProfile(){
     const _token = getToken()
 
     if (!_token){
-        console.log('No token found')
-        return
+        console.log('No token found');
+        return;
     }
 
-    try {
+    try{
+
         const response = await fetch('/api/profile', {
-            method: 'POST',
+            method: 'GET',
             headers: {
-                'Content-type': 'application-json',
+                'Content-type': 'application/json',
                 'Authorization': 'Bearer ' + _token
             }
         })
@@ -88,19 +104,23 @@ async function loadProfile(){
             // token
             tokenPreview.innerText = _token
             tokenIssued.innerText = data.tokenInfo.issuedAt
-            tokenExpires.innerText = data.tokenInfo.expiresAt
+            tokenExpires.innerText = data.tokenInfo.expiresIn
 
-            // show profile block
+            // show profile block 
             profileView.classList.remove('hidden')
             loginForm.classList.add('hidden')
+
         }
 
     }
-    catch (error)
+    catch(error)
     {
-        console.log(error)
+        console.log(error);
+        
     }
+
 }
+
 
 function saveToken (token){
     localStorage.setItem('jwt_token', token)

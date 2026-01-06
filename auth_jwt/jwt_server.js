@@ -14,7 +14,7 @@ const JWT_EXPIRES_IN = "30m"; // Token expires in 30 minutes
 // Middleware
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 // Mock user database
 const users = [
@@ -83,7 +83,7 @@ app.get("/api/profile", authenticateToken, (req, res) => {
     user: req.user,
     tokenInfo: {
       issuedAt: new Date(),
-      expiredAt: new Date()
+      expiresIn: new Date()
     }
   })
 })
