@@ -1,3 +1,5 @@
+<img src="readme.png" alt="Project Banner">
+
 # Distributed Systems Project – *Hajusrakendused*
 
 This project is being developed as part of the *Hajusrakendused* (Distributed Systems) course and demonstrates practical skills in building a simple distributed web application.  
@@ -39,7 +41,7 @@ npm install
 
 3. Start the server:
 ```
-node app.js
+npx http-server -p 3000
 ```
 
 4. Open in browser:
